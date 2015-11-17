@@ -112,7 +112,7 @@ appMenu = function () {
 
                             )
                     ) +
-            dom.li('class="dropdown"',
+         dom.li('class="dropdown"',
                     dom.a('href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"',
                             dom.i('class="fa fa-icon-list-alt"', '') +
                             'Proyectos' +
@@ -120,7 +120,7 @@ appMenu = function () {
                             ) +
                     dom.ul('class="dropdown-menu" role="menu"',
                             dom.li('',
-                                    dom.a('href="#/cuestionario/view/91"',
+                                    dom.a('href="#/cuestionario/list"',
                                             dom.i('class="fa fa-fw fa-question"', '') +
                                             'Cuestionario'
                                             )
