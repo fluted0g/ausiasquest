@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 04-11-2015 a las 01:16:47
+-- Tiempo de generación: 17-11-2015 a las 01:18:13
 -- Versión del servidor: 5.6.26
 -- Versión de PHP: 5.5.29
 
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `categoriaarticulo` (
   `id` int(11) NOT NULL COMMENT 'id',
   `nombre` varchar(255) DEFAULT NULL COMMENT 'nombre',
   `descripcion` varchar(255) DEFAULT NULL COMMENT 'descripcion'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `categoriaarticulo`
@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `documento` (
   `portada` tinyint(1) DEFAULT NULL COMMENT 'Portada',
   `destacado` tinyint(1) DEFAULT NULL COMMENT 'Destacado',
   `id_tipodocumento` int(6) DEFAULT NULL COMMENT 'Tipo'
-) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `documento`
@@ -169,12 +169,8 @@ INSERT INTO `documento` (`id`, `titulo`, `contenido`, `alta`, `cambio`, `hits`, 
 (82, 'a', 'aserrr', '2015-10-11', '2015-10-11', 1, 0, 'fsd', 0, 0, 1, 0),
 (83, 'a', 'aserrr', '2015-10-11', '2015-10-11', 1, 0, 'fsd', 0, 0, 1, 0),
 (84, 'sss', 'ssss', '2015-10-08', '2015-10-11', 1, 0, 'ssss', 0, 0, 1, 0),
-(85, 'qqqqqqqqqqq', 'rrr', '2015-10-11', '2015-10-11', 3, 0, 'r', 0, 0, 0, 0),
-(86, 'r', 'r', '2015-10-11', '2015-10-11', 1, 0, 'r', 0, 0, 0, 0),
-(87, 'r', 'r', '2015-10-11', '2015-10-11', 3, 0, 'r', 1, 0, 0, 0),
-(88, 'Pregunta uno', 'Cuestionario prueba', '2015-11-03', '2015-11-03', 0, 7, 'who, is, the, best', 0, 1, 0, 12),
-(89, 'Pregunta 2', 'Esto es una pregunta?', '2015-11-03', '2015-11-03', NULL, 6, 'pregunta, tocapelotas', 0, 1, 0, 12),
-(90, 'hola adios', 'estas o no?', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(91, 'Cuestionario de prueba', '1.-¿cual es el sentido de la vida?\r\na-ninguno, vamos a morir!\r\nb-43\r\nc-tetas\r\nd-ns/nc\r\n\r\n2.-¿qué come el veloz murciélago?\r\na-cardillo y kiwi\r\nb-huevos con patatas\r\nc-paella,ché\r\nd-ns/nc\r\n\r\n3.-¿qué tocaba la cigüeña tras el palenque de paja?\r\na-la zambomba\r\nb-el saxofón\r\nc-la flauta\r\nd-ns/nc\r\n\r\n4.-¿existe Dios?\r\na.-si\r\nb.-no\r\nc.-jamás\r\nd.-yo soy Dios\r\n\r\n5.-¿rajoy es subnormal?\r\na.-si\r\nb.-¿acaso el papa es un boludo?\r\nc.-por supuesto\r\nd.-no me cabe duda', '2015-11-11', '2015-11-11', 1, 15, 'cuestionario,prueba,pregunta,respuesta,opcion', 1, 1, 1, 12),
+(92, 'Cuestionario de Prueba 2!!!!111', 'muchas preguntas', '2015-11-17', '2015-11-17', 5, 5, 'cuestionario,prueba,111', 1, 1, 1, 12);
 
 -- --------------------------------------------------------
 
@@ -236,51 +232,49 @@ CREATE TABLE IF NOT EXISTS `opcion` (
   `id` int(11) NOT NULL,
   `id_pregunta` int(11) DEFAULT NULL,
   `descripcion` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `opcion`
 --
 
 INSERT INTO `opcion` (`id`, `id_pregunta`, `descripcion`) VALUES
-(7, 1, 'Rafa'),
-(8, 1, 'Alf'),
-(9, 1, 'Naranjito'),
-(11, 1, 'Chuck'),
-(12, 1, 'Pepe'),
-(13, 3, 'Si'),
-(14, 3, 'No'),
-(15, 3, 'Quizás'),
-(16, 3, 'Jamás'),
-(17, 3, 'No se'),
-(18, 4, 'hola'),
-(19, 4, 'adios'),
-(20, 1, 'opcion1'),
-(21, 1, 'opcion2'),
-(22, 3, 'opcion1'),
-(23, 3, 'opcion2'),
-(24, 4, 'opcion1'),
-(25, 4, 'opcion2'),
-(26, 5, 'opcion1'),
-(27, 5, 'opcion2'),
-(28, 6, 'opcion1'),
-(29, 6, 'opcion2'),
-(30, 7, 'opcion1'),
-(31, 7, 'opcion2'),
-(32, 8, 'opcion1'),
-(33, 8, 'opcion2'),
-(34, 9, 'opcion1'),
-(35, 9, 'opcion2'),
-(36, 10, 'opcion1'),
-(37, 10, 'opcion2'),
-(38, 11, 'opcion1'),
-(39, 11, 'opcion2'),
-(40, 13, 'opcion1'),
-(41, 13, 'opcion2'),
-(42, 14, 'opcion1'),
-(43, 14, 'opcion2'),
-(44, 15, 'opcion1'),
-(45, 15, 'opcion2');
+(46, 17, 'ninguno, vamos a morir!'),
+(47, 17, '43'),
+(50, 17, 'tetas'),
+(51, 17, 'ns/nc'),
+(54, 18, 'cardillo y kiwi'),
+(55, 18, 'huevos con patatas'),
+(58, 18, 'paella,ché!'),
+(59, 18, 'ns/nc'),
+(62, 19, 'La zambomba'),
+(63, 19, 'El saxofón'),
+(66, 19, 'La flauta'),
+(67, 19, 'NS/NC'),
+(70, 20, 'Sí'),
+(71, 20, 'No'),
+(74, 20, 'Jamás'),
+(75, 20, 'Yo soy Dios'),
+(78, 21, 'Sí'),
+(79, 21, '¿Acaso el Papa es un boludo?'),
+(82, 21, 'Por supuesto'),
+(83, 21, 'No me cabe duda'),
+(84, 22, 'Prepara la vaselina'),
+(85, 22, 'No te preocupes'),
+(86, 22, 'Es inevitable'),
+(87, 22, 'Prepara el popper'),
+(88, 23, 'Rubias'),
+(89, 23, 'morenas'),
+(90, 23, 'paco'),
+(91, 23, 'cabras'),
+(92, 24, 'teenagers'),
+(93, 24, 'paco'),
+(94, 24, 'ancianos'),
+(95, 24, 'cabras'),
+(96, 25, 'holiiii'),
+(97, 25, 'adios'),
+(98, 26, 'muy mucho'),
+(99, 26, 'que va');
 
 -- --------------------------------------------------------
 
@@ -294,7 +288,7 @@ CREATE TABLE IF NOT EXISTS `post` (
   `id_documento` int(11) DEFAULT NULL COMMENT 'Documento',
   `fecha` datetime DEFAULT NULL COMMENT 'Publicacion',
   `mensaje` text COLLATE utf8_unicode_ci
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `post`
@@ -327,28 +321,23 @@ CREATE TABLE IF NOT EXISTS `pregunta` (
   `id` int(11) NOT NULL,
   `id_documento` int(11) DEFAULT NULL,
   `descripcion` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `pregunta`
 --
 
 INSERT INTO `pregunta` (`id`, `id_documento`, `descripcion`) VALUES
-(1, 88, NULL),
-(3, 89, NULL),
-(4, 90, NULL),
-(5, 1, NULL),
-(6, 2, NULL),
-(7, 3, NULL),
-(8, 4, NULL),
-(9, 5, NULL),
-(10, 6, NULL),
-(11, 7, NULL),
-(12, 8, NULL),
-(13, 9, NULL),
-(14, 10, NULL),
-(15, 19, NULL),
-(16, 88, NULL);
+(17, 91, '¿cual es el sentido de la vida?'),
+(18, 91, '¿qué come el veloz murciélago?'),
+(19, 91, '¿qué tocaba la cigüeña tras el palenque de paja?'),
+(20, 91, '¿existe Dios?'),
+(21, 91, '¿rajoy es subnormal?'),
+(22, 92, '¿nos van a dar por el culo mañana?'),
+(23, 92, '¿rubias o morenas?'),
+(24, 92, '¿cual es tu cliente objetivo?'),
+(25, 92, '¿hola?'),
+(26, 92, '¿julio es un cansino?');
 
 -- --------------------------------------------------------
 
@@ -361,22 +350,20 @@ CREATE TABLE IF NOT EXISTS `respuesta` (
   `id_opcion` int(11) DEFAULT NULL,
   `id_usuario` int(11) DEFAULT NULL,
   `fechaHoraAlta` datetime DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `respuesta`
 --
 
 INSERT INTO `respuesta` (`id`, `id_opcion`, `id_usuario`, `fechaHoraAlta`) VALUES
-(1, 8, 1, '2015-11-03 10:42:00'),
-(2, 15, 1, '2015-11-03 00:00:00'),
-(3, 19, 30, NULL),
-(4, 20, 10, NULL),
-(5, 21, 10, NULL),
-(6, 22, 11, NULL),
-(7, 23, 11, NULL),
-(8, 24, 12, NULL),
-(9, 25, 13, NULL);
+(10, 47, 1, '2015-11-11 00:00:00'),
+(11, 54, 1, '2015-11-11 00:00:00'),
+(12, 63, 1, '2015-11-11 00:00:00'),
+(13, 75, 1, '2015-11-11 17:20:45'),
+(14, 79, 1, '2015-11-11 06:29:21'),
+(15, 85, 0, NULL),
+(16, 85, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -388,7 +375,7 @@ CREATE TABLE IF NOT EXISTS `tipodocumento` (
   `id` int(6) NOT NULL,
   `descripcion` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `privado` tinyint(4) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `tipodocumento`
@@ -486,6 +473,12 @@ INSERT INTO `usuario` (`id`, `login`, `password`, `id_tipousuario`, `id_estado`,
 --
 
 --
+-- Indices de la tabla `categoriaarticulo`
+--
+ALTER TABLE `categoriaarticulo`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `comentario`
 --
 ALTER TABLE `comentario`
@@ -495,6 +488,12 @@ ALTER TABLE `comentario`
 -- Indices de la tabla `documento`
 --
 ALTER TABLE `documento`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `documentocategoriaarticulo`
+--
+ALTER TABLE `documentocategoriaarticulo`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -550,6 +549,11 @@ ALTER TABLE `usuario`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `categoriaarticulo`
+--
+ALTER TABLE `categoriaarticulo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',AUTO_INCREMENT=17;
+--
 -- AUTO_INCREMENT de la tabla `comentario`
 --
 ALTER TABLE `comentario`
@@ -558,7 +562,12 @@ ALTER TABLE `comentario`
 -- AUTO_INCREMENT de la tabla `documento`
 --
 ALTER TABLE `documento`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT COMMENT 'Num.',AUTO_INCREMENT=91;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT COMMENT 'Num.',AUTO_INCREMENT=93;
+--
+-- AUTO_INCREMENT de la tabla `documentocategoriaarticulo`
+--
+ALTER TABLE `documentocategoriaarticulo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id';
 --
 -- AUTO_INCREMENT de la tabla `estado`
 --
@@ -568,22 +577,27 @@ ALTER TABLE `estado`
 -- AUTO_INCREMENT de la tabla `opcion`
 --
 ALTER TABLE `opcion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=46;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=100;
+--
+-- AUTO_INCREMENT de la tabla `post`
+--
+ALTER TABLE `post`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Num.',AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT de la tabla `pregunta`
 --
 ALTER TABLE `pregunta`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT de la tabla `respuesta`
 --
 ALTER TABLE `respuesta`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT de la tabla `tipodocumento`
 --
 ALTER TABLE `tipodocumento`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT de la tabla `tipousuario`
 --
@@ -594,11 +608,6 @@ ALTER TABLE `tipousuario`
 --
 ALTER TABLE `usuario`
   MODIFY `id` int(6) NOT NULL AUTO_INCREMENT COMMENT 'Identificador',AUTO_INCREMENT=31;
---
--- Restricciones para tablas volcadas
---
-
-
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
