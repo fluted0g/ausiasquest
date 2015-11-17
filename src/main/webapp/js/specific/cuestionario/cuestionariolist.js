@@ -35,15 +35,15 @@ cuestionarioList.prototype = new listModule();
 
 // check
 cuestionarioList.prototype.loadThButtons = function (meta, strClase, UrlFromParamsWithoutOrder) {
-    return button.getTableHeaderButtons(meta.Name, strClase, 'list', UrlFromParamsWithoutOrder);
+    return button.getTableHeaderButtons(meta.Name, strClase, 'cuestionariolist', UrlFromParamsWithoutOrder);
 }
 
 //check
-cuestionarioList.prototype.loadButtons = function (rowValues, strOb) {
+cuestionarioList.prototype.loadButtons = function (rowValues, strClass) {
     var botonera = "";
-    botonera += button.getTableToobarButton(strOb, 'view', rowValues[0].data, 'glyphicon-eye-open');
-    botonera += button.getTableToobarButton(strOb, 'edit', rowValues[0].data, 'glyphicon-pencil');
-    botonera += button.getTableToobarButton(strOb, 'remove', rowValues[0].data, 'glyphicon-remove');
+    botonera += button.getTableToobarButton(strClass, 'view', rowValues[0].data, 'glyphicon-eye-open');
+ //   botonera += button.getTableToobarButton(strClass, 'edit', rowValues[0].data, 'glyphicon-pencil');
+  //  botonera += button.getTableToobarButton(strClass, 'remove', rowValues[0].data, 'glyphicon-remove');
     return button.getToolbarBar(botonera);
 };
 
@@ -54,7 +54,7 @@ cuestionarioList.prototype.getHeaderPageTableFunc = function (jsonMeta, strOb, U
     acciones = typeof (acciones) != 'undefined' ? acciones : true;
     
      arr_meta_data_tableHeader_filtered = _.filter(jsonMeta, function(oItem){
-        if (oItem.ShortName=="Título" ) {
+        if (oItem.UltraShortName = "Iden." ) {
             return true;
         } else {
             return false;
@@ -65,15 +65,16 @@ cuestionarioList.prototype.getHeaderPageTableFunc = function (jsonMeta, strOb, U
     
     arr_meta_data_tableHeader = _.map(arr_meta_data_tableHeader_filtered, function (oMeta, key) {
         
+        
         if (oMeta.Name == "titulo") {
-            return '<th class="col-md-1">'
+            return '<th class="col-md-8">'
                     + oMeta.ShortName
                     + '<br />'
                     + thisObject.loadThButtons(oMeta, strOb, UrlFromParamsWithoutOrder)
                     + '</th>';
-        } else if (oMeta.Name == "titulo") {
-            return '<th>'
-                    + oMeta.ShortName
+        } else if (oMeta.Name == "id_documento") {
+            return '<th class="col-md-3">'
+                    + oMeta.UltraShortName
                     + '<br />'
                     + thisObject.loadThButtons(oMeta, strOb, UrlFromParamsWithoutOrder)
                     + '</th>';
@@ -102,16 +103,20 @@ cuestionarioList.prototype.getBodyPageTableFunc = function (meta, page, printPri
     });
     //Filtra los campos del array de objetos recogiendo los que son necesarios en nuestro caso
     matrix_meta_data_filtered = _.map(matrix_meta_data,function(oFilter){
-        return _.pick(oFilter,0);
+        return _.pick(oFilter,0,1);
     });
     //is an array (rpp) of arrays (rows) of objects
     //every object contains the data and its metadata
     var arr_meta_data_table_buttons = _.map(matrix_meta_data_filtered, function (value, key) {
         return (_.map(matrix_meta_data_filtered[key], function (value2, key2) {
 //            return  
-            
+         
          if(value2.meta.ShortName == "Título"){   
-                return  '<td class="col-md-11">'
+                return  '<td class="col-md-8">'
+                        + printPrincipal(value2)
+                        +'</td>'
+            }else if(value2.meta.ShortName == "Título"){   
+                return  '<td class="col-md-3">'
                         + printPrincipal(value2)
                         +'</td>'
             }else{
@@ -137,7 +142,7 @@ cuestionarioList.prototype.getBodyPageTableFunc = function (meta, page, printPri
     //is an array (rpp) of strings 
     //where every string is a ...
     var str_meta_data_table_buttons_reduced_reduced = _.reduce(arr_meta_data_table_buttons_reduced, function (memo, num) {
-        return memo + '<td>' + num + '</td>';
+        return memo + '<tr>' + num + '</tr>';
     });
     //is a string that contains the table body
     return str_meta_data_table_buttons_reduced_reduced;
