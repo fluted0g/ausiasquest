@@ -45,17 +45,18 @@ import net.daw.helper.statics.MetaEnum;
 )
 public class CuestionarioBean extends BeanGenImpl implements BeanInterface {
      
+      
     @Expose
     @MethodMetaInformation(
-            UltraShortName = "Iden. Doc",
-            ShortName = "Iden. de Documento",
-            Description = "Identificador de Documento",
-            IsIdForeignKey = true,
-            ReferencesTable = "pregunta",
-            Type = MetaEnum.FieldType.Integer
+            UltraShortName = "Iden.",
+            ShortName = "Iden. Heredado",
+            Description = "Número Identificador Documento",
+            Type = MetaEnum.FieldType.Integer,
+            DefaultValue = "0"
     )
     private Integer id_documento = 0;
     
+
 
     @Expose
     @MethodMetaInformation(
