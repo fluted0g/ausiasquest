@@ -131,14 +131,16 @@ public class CuestionarioDao extends TableDaoGenImpl<CuestionarioBean> {
 
         ResultSet resultdocumento = oMysql.getAllSql("select * from documento");
         if (resultdocumento != null) {
-            int i = 0;
-
-            while (resultdocumento.next()) {
+           
+            while (resultdocumento.next()) {                 
                 ResultSet resultpregunta = oMysql.getAllSql("select * from pregunta");
+                int i = 0;
                 while (resultpregunta.next()) {
                     if (resultpregunta.getInt("id_documento") == resultdocumento.getInt("id")) {
+                        
                         if (i == 0) {
-                            i = 0;
+                          
+                            i=0;
                             PreguntaDao oPreguntaDao = new PreguntaDao(oConnection);
                             PreguntaBean oPreguntaBean = new PreguntaBean();
                             oPreguntaBean.setId(resultpregunta.getInt("id"));
@@ -153,7 +155,7 @@ public class CuestionarioDao extends TableDaoGenImpl<CuestionarioBean> {
                             while (resultopcion.next()) {
                                 if (resultopcion.getInt("id_pregunta") == resultpregunta.getInt("id")) {
                                     if (j == 0) {
-                                        j = 0;
+                                      j = 0;
                                         CuestionarioBean oCuestionarioBean = new CuestionarioBean();
                                         oCuestionarioBean.setId_documento(resultdocumento.getInt("id"));
                                         oCuestionarioBean.setTitulo(resultdocumento.getString("titulo"));
@@ -173,7 +175,7 @@ public class CuestionarioDao extends TableDaoGenImpl<CuestionarioBean> {
                                         oCuestionarioBean.setObj_opcion(oGroupBeanImplOpcion);
                                         alCuestionario.add(oCuestionarioBean);
                                     }
-                                    j++;
+                                   j++;
                                 }
                             }
                         }
