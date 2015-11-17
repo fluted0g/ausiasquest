@@ -122,7 +122,7 @@ appMenu = function () {
                             dom.li('',
                                     dom.a('href="#/cuestionario/list"',
                                             dom.i('class="fa fa-fw fa-question"', '') +
-                                            'Cuestionario'
+                                            'Cuestionarios'
                                             )
                                     )
 
