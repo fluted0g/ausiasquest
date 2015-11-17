@@ -296,11 +296,10 @@ public class RespuestaService extends TableServiceGenImpl {
         Connection oConnection = new BoneConnectionPoolImpl().newConnection();
 
 //        int idUsuario = ParameterCook.prepareInt("id", oRequest);
-
         Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").excludeFieldsWithoutExposeAnnotation().create();
         String[] resultado = gson.fromJson(oRequest.getParameter("json"), String[].class);
 
-        for (int i = 0; i <= resultado.length; i++) {
+        for (int i = 0; i < resultado.length; i++) {
             RespuestaDao oRespuestaDao = new RespuestaDao(oConnection);
             RespuestaBean oRespuestaBean = new RespuestaBean();
 //            oRespuestaBean.setId_usuario(idUsuario);
