@@ -36,6 +36,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import net.daw.bean.specific.implementation.PreguntaBean;
 import net.daw.bean.specific.implementation.RespuestaBean;
+import net.daw.bean.specific.implementation.UsuarioBean;
 import net.daw.connection.implementation.BoneConnectionPoolImpl;
 import net.daw.connection.publicinterface.ConnectionInterface;
 import net.daw.dao.specific.implementation.OpcionDao;
@@ -294,7 +295,7 @@ public class RespuestaService extends TableServiceGenImpl {
     public String procesacuestionario() throws Exception {
 
         Connection oConnection = new BoneConnectionPoolImpl().newConnection();
-
+        UsuarioBean oUserBean = (UsuarioBean) oRequest.getSession().getAttribute("userBean");
 //        int idUsuario = ParameterCook.prepareInt("id", oRequest);
         Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").excludeFieldsWithoutExposeAnnotation().create();
         String[] resultado = gson.fromJson(oRequest.getParameter("json"), String[].class);
@@ -302,7 +303,7 @@ public class RespuestaService extends TableServiceGenImpl {
         for (int i = 0; i < resultado.length; i++) {
             RespuestaDao oRespuestaDao = new RespuestaDao(oConnection);
             RespuestaBean oRespuestaBean = new RespuestaBean();
-//            oRespuestaBean.setId_usuario(idUsuario);
+            oRespuestaBean.setId_usuario(oUserBean.getId());
             oRespuestaBean.setId_opcion(Integer.parseInt(resultado[i]));
             oRespuestaDao.set(oRespuestaBean);
         }
