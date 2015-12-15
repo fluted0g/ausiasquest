@@ -50,14 +50,14 @@ pListModule.prototype = new listModule();
 //    return false;
 //};
 pListModule.prototype.loadThButtons = function (meta, strClase, UrlFromParamsWithoutOrder) {
-    return button.getTableHeaderButtons(meta.Name, strClase, 'plist', UrlFromParamsWithoutOrder);
+    return this.button_getTableHeaderButtons(meta.Name, strClase, 'plist', UrlFromParamsWithoutOrder);
 }
 pListModule.prototype.getRegistersInfo = function (regs) {
     return dom.p('', "Mostrando una consulta de " + regs + " registros.");
 };
 pListModule.prototype.getOrderInfo = function (objParams) {
     if (objParams['order']) {
-        strOrder = "<p><small>Contenido ordenado por " + objParams["order"] + " (" + objParams["ordervalue"] + ') <a href="#/' + strOb + '/plist/' + parameter.getUrlStringFromParamsObject(parameter.getUrlObjectFromParamsWithoutParamArray(objParams, ["order", "ordervalue"])) + '" id="linkQuitarOrden">(Quitar orden)</a></small></p>';
+        strOrder = "<p><small>Contenido ordenado por " + objParams["order"] + " (" + objParams["ordervalue"] + ') <a href="#/' + strOb + '/plist/' + this.parameter_getUrlStringFromParamsObject(this.parameter_getUrlObjectFromParamsWithoutParamArray(objParams, ["order", "ordervalue"])) + '" id="linkQuitarOrden">(Quitar orden)</a></small></p>';
     } else {
         strOrder = dom.p('', 'Contenido no ordenado');
     }
@@ -70,7 +70,7 @@ pListModule.prototype.getFilterInfo = function (objParams) {
                 dom.p('',
                         dom.small('',
                                 'Contenido filtrado (' + objParams ['filter'] + ' ' + objParams['filteroperator'] + ' ' + objParams['filtervalue'] + ') ' +
-                                dom.a('href="#/' + strOb + '/plist/' + parameter.getUrlStringFromParamsObject(parameter.getUrlObjectFromParamsWithoutParamArray(objParams, ["filter", "filteroperator", "filtervalue"])) + '" id="linkQuitarFiltro"', '(Quitar filtro)')
+                                dom.a('href="#/' + strOb + '/plist/' + this.parameter_getUrlStringFromParamsObject(this.parameter_getUrlObjectFromParamsWithoutParamArray(objParams, ["filter", "filteroperator", "filtervalue"])) + '" id="linkQuitarFiltro"', '(Quitar filtro)')
                                 )
                         );
         //strFilter = "<p><small>Contenido filtrado (" + objParams ['filter'] + " " + objParams['filteroperator'] + " " + objParams['filtervalue'] + ') <a href="#/' + strOb + '/plist/' + parameter.getUrlStringFromParamsObject(parameter.getUrlObjectFromParamsWithoutParamArray(objParams, ["filter", "filteroperator", "filtervalue"])) + '" id="linkQuitarFiltro">(Quitar filtro)</a></small></p>';
@@ -171,12 +171,12 @@ pListModule.prototype.prepareParams = function (oComponent) {
     strOb = oComponent.strOb;
     strOp = oComponent.strOp;
     paramsObject = this.defaultizeUrlObjectParametersForPaginatedLists(oComponent.strParams);
-    orderParams = parameter.printOrderParamsInUrl(paramsObject);
-    filterParams = parameter.printFilterParamsInUrl(paramsObject);
-    systemFilterParams = parameter.printSystemFilterParamsInUrl(paramsObject);
-    strUrlFromParamsWithoutPage = parameter.getUrlStringFromParamsObject(parameter.getUrlObjectFromParamsWithoutParamArray(paramsObject, ["page"]));
-    strUrlFromParamsWithoutRpp = parameter.getUrlStringFromParamsObject(parameter.getUrlObjectFromParamsWithoutParamArray(paramsObject, ["rpp"]));
-    strUrlFromParamsWithoutOrder = parameter.getUrlStringFromParamsObject(parameter.getUrlObjectFromParamsWithoutParamArray(paramsObject, ["order", "ordervalue"]));
+    orderParams = this.parameter_printOrderParamsInUrl(paramsObject);
+    filterParams = this.parameter_printFilterParamsInUrl(paramsObject);
+    systemFilterParams = this.parameter_printSystemFilterParamsInUrl(paramsObject);
+    strUrlFromParamsWithoutPage = this.parameter_getUrlStringFromParamsObject(this.parameter_getUrlObjectFromParamsWithoutParamArray(paramsObject, ["page"]));
+    strUrlFromParamsWithoutRpp = this.parameter_getUrlStringFromParamsObject(this.parameter_getUrlObjectFromParamsWithoutParamArray(paramsObject, ["rpp"]));
+    strUrlFromParamsWithoutOrder = this.parameter_getUrlStringFromParamsObject(this.parameter_getUrlObjectFromParamsWithoutParamArray(paramsObject, ["order", "ordervalue"]));
     urlWithoutPage = '#/' + strOb + '/' + strOp + '/' + strUrlFromParamsWithoutPage;
     urlWithoutRpp = '#/' + strOb + '/' + strOp + '/' + strUrlFromParamsWithoutRpp;
 }
@@ -185,7 +185,7 @@ pListModule.prototype.initialize = function (oComponent) {
 };
 pListModule.prototype.getPromise = function () {
     if (strOb && paramsObject && paramsObject.rpp && paramsObject.page) {
-        return promise.getSome(strOb, paramsObject.rpp, paramsObject.page, filterParams, orderParams, systemFilterParams);
+        return this.promise_getSome(strOb, paramsObject.rpp, paramsObject.page, filterParams, orderParams, systemFilterParams);
     }
 
 };
@@ -225,8 +225,8 @@ pListModule.prototype.render = function () {
 
     strGeneralInformation = this.informationTemplate(
             this.getRegistersInfo(jsonData.message.registers.message) + this.getOrderInfo(paramsObject) + this.getFilterInfo(paramsObject),
-            pagination.getPageLinks(urlWithoutPage, parseInt(paramsObject["page"]), parseInt(jsonData.message.pages.message), 2),
-            pagination.getRppLinks(urlWithoutRpp, paramsObject['rpp'])
+            this.pagination_getPageLinks(urlWithoutPage, parseInt(paramsObject["page"]), parseInt(jsonData.message.pages.message), 2),
+            this.pagination_getRppLinks(urlWithoutRpp, paramsObject['rpp'])
             );
     strVisibleFields = this.visibleFieldsTemplate();
     strFilterForm = this.filterFormTemplate();
@@ -234,11 +234,11 @@ pListModule.prototype.render = function () {
     strNewButton = this.newTemplate(strOb);
     //console.log(this.loadButtons('2','1'))   //??
 
-    strTable = table.getTable(
+    strTable = this.table_getTable(
             this.getHeaderPageTableFunc(jsonData.message.meta.message, strOb, strUrlFromParamsWithoutOrder, paramsObject.vf),
-            this.getBodyPageTableFunc(jsonData.message.meta.message, jsonData.message.page.message, html.printPrincipal, this.loadButtons, this.loadPopups, paramsObject.vf)
+            this.getBodyPageTableFunc(jsonData.message.meta.message, jsonData.message.page.message, paramsObject.vf)
             );
-    return tab.getTab([
+    return this.tab_getTab([
         {'name': 'Consulta', 'content': strGeneralInformation},
         {'name': 'Campos visibles', 'content': strVisibleFields},
         {'name': 'Filtro de servidor', 'content': strFilterForm},
@@ -250,39 +250,39 @@ pListModule.prototype.bind = function () {
     thisObject = this;
     //visible fields
     $('#selectVisibleFields').empty()
-    form.populateSelectBox($('#selectVisibleFields'), array.getIntegerArray(1, jsonData.message.meta.message.length))
+    this.form_populateSelectBox($('#selectVisibleFields'), this.array_getIntegerArray(1, jsonData.message.meta.message.length))
     $("#selectVisibleFields").val(paramsObject["vf"]);
     $('#selectVisibleFields').unbind('change');
     $("#selectVisibleFields").change(function () {
-        window.location.href = "#/" + strOb + "/plist/" + parameter.getUrlStringFromParamsObject(parameter.getUrlObjectFromParamsWithoutParamArray(paramsObject, ['vf'])) + "&vf=" + $("#selectVisibleFields option:selected").val();
+        window.location.href = "#/" + strOb + "/plist/" + thisObject.parameter_getUrlStringFromParamsObject(thisObject.parameter_getUrlObjectFromParamsWithoutParamArray(paramsObject, ['vf'])) + "&vf=" + $("#selectVisibleFields option:selected").val();
         return false;
     });
     //filter
-    form.populateSelectBox($('#selectFilter'), array.getArrayFromMultiSlicedArray('Name', jsonData.message.meta.message), array.getArrayFromMultiSlicedArray('ShortName', jsonData.message.meta.message));
+    this.form_populateSelectBox($('#selectFilter'), this.array_getArrayFromMultiSlicedArray('Name', jsonData.message.meta.message), this.array_getArrayFromMultiSlicedArray('ShortName', jsonData.message.meta.message));
     $('#btnFiltrar').unbind('click');
     $("#btnFiltrar").click(function (event) {
         var filter = $("#selectFilter option:selected").val();
         var filteroperator = $("#selectFilteroperator option:selected").val();
         var filtervalue = $("#inputFiltervalue").val();
-        window.location.href = '#/' + strOb + '/plist/' + parameter.getUrlStringFromParamsObject(parameter.getUrlObjectFromParamsWithoutParamArray(paramsObject, ['filter', 'filteroperator', 'filtervalue'])) + "&filter=" + filter + "&filteroperator=" + filteroperator + "&filtervalue=" + filtervalue;
+        window.location.href = '#/' + strOb + '/plist/' + thisObject.parameter_getUrlStringFromParamsObject(thisObject.parameter_getUrlObjectFromParamsWithoutParamArray(paramsObject, ['filter', 'filteroperator', 'filtervalue'])) + "&filter=" + filter + "&filteroperator=" + filteroperator + "&filtervalue=" + filtervalue;
         return false;
     });
     //filter client
-    form.populateSelectBox($('#selectFilterClient'), array.getArrayFromMultiSlicedArray('Name', jsonData.message.meta.message), array.getArrayFromMultiSlicedArray('ShortName', jsonData.message.meta.message));
+    this.form_populateSelectBox($('#selectFilterClient'), this.array_getArrayFromMultiSlicedArray('Name', jsonData.message.meta.message), this.array_getArrayFromMultiSlicedArray('ShortName', jsonData.message.meta.message));
     $('#btnFiltrarClient').unbind('click');
     $("#btnFiltrarClient").click(function (event) {
         var filtervalue = $("#inputFiltervalueClient").val();
         //pte  -> reconstruir this.jsonPage con /word/.test(str)
-        var arrayFiltered = array.filterArray(filtervalue, jsonData.message.page.message);
+        var arrayFiltered = thisObject.array_filterArray(filtervalue, jsonData.message.page.message);
         //window.location.href = '#/' + thisObject.strClase + '/plist/' + parameter.getUrlStringFromParamsObject(parameter.getUrlObjectFromParamsWithoutParamArray(thisObject.objParams, ['filter', 'filteroperator', 'filtervalue'])) + "&filter=" + filter + "&filteroperator=" + filteroperator + "&filtervalue=" + filtervalue;
 
-        var strUrlFromParamsWithoutPage = parameter.getUrlStringFromParamsObject(parameter.getUrlObjectFromParamsWithoutParamArray(paramsObject, ["order", "ordervalue"]));
+        var strUrlFromParamsWithoutPage = thisObject.parameter_getUrlStringFromParamsObject(thisObject.parameter_getUrlObjectFromParamsWithoutParamArray(paramsObject, ["order", "ordervalue"]));
 
-        var strTable = table.getTable(
+        var strTable = thisObject.table_getTable(
                 thisObject.getHeaderPageTableFunc(jsonData.message.meta.message, strOb, strUrlFromParamsWithoutPage, paramsObject.vf),
-                thisObject.getBodyPageTableFunc(jsonData.message.meta.message, arrayFiltered, html.printPrincipal, thisObject.loadButtons, thisObject.loadPopups, paramsObject.vf)
+                thisObject.getBodyPageTableFunc(jsonData.message.meta.message, arrayFiltered, thisObject.html_printPrincipal, thisObject.loadButtons, thisObject.loadPopups, paramsObject.vf)
                 );
-        $('#broth_content').empty().append(tab.getTab([
+        $('#broth_content').empty().append(this.tab_getTab([
             {'name': 'Consulta', 'content': strGeneralInformation},
             {'name': 'Campos visibles', 'content': strVisibleFields},
             {'name': 'Filtro de servidor', 'content': strFilterForm},

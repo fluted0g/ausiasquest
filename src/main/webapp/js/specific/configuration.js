@@ -26,28 +26,63 @@
  */
 
 configuration = {
+    isAppInProductionMode: function () {
+        return false;
+    },
+    getAppName: function () {
+        var strPath = window.location.pathname;
+        return strPath.substr(1, strPath.substr(1, strPath.length).indexOf('/'));
+    },
+    getAppClientUrl: function () {
+        return location.protocol + '//' + location.hostname + ':' + location.port + '/' + this.getAppName();
+    },
+    getAppUrl: function () {
+        return location.protocol + '//' + location.hostname + ':' + location.port + '/' + this.getAppName() + '/json';
+    },
     pathConfig: function () {
-
+        var that = this;
         Path.map("#/about").to(function () {
-            $('#broth_panel_heading').empty().append(html.getPageHeader('<i class="fa fa-comments fa-5x"></i>', "openAusiàs", "the astonising framework"));
+            $('#broth_panel_heading').empty().append(init.getPageHeader('<i class="fa fa-comments fa-5x"></i>', "openAusiàs", "the astonising framework"));
             $('#broth_content').empty();
         });
         Path.root("#/home");
         Path.map("#/").to(function () {
-            $('#broth_panel_heading').empty().append(html.getPageHeader('<i class="fa fa-comments fa-5x"></i>', "openAusiàs", "the astonising framework"));
+            $('#broth_panel_heading').empty().append(init.getPageHeader('<i class="fa fa-comments fa-5x"></i>', "openAusiàs", "the astonising framework"));
         });
         Path.map("#").to(function () {
-            $('#broth_panel_heading').empty().append(html.getPageHeader('<i class="fa fa-comments fa-5x"></i>', "openAusiàs", "the astonising framework"));
+            $('#broth_panel_heading').empty().append(init.getPageHeader('<i class="fa fa-comments fa-5x"></i>', "openAusiàs", "the astonising framework"));
             $('#broth_content').empty();
         });
         Path.map("#/home").to(function () {
-            $('#broth_panel_heading').empty().append(html.getPageHeader('<i class="fa fa-comments fa-5x"></i>', "openAusiàs", "the astonising framework"));
+            $('#broth_panel_heading').empty().append(init.getPageHeader('<i class="fa fa-comments fa-5x"></i>', "openAusiàs", "the astonising framework"));
             $('#broth_content').empty();
         });
         Path.rescue(function () {
-            $('#broth_panel_heading').empty().append(html.getPageHeader('<i class="fa fa-ambulance fa-5x"></i>', "404: la página no existe", "la dirección no es correcta"));
-            $('#broth_content').empty().append('<a href="' + config.getAppClientUrl() + '"/#/home">Ir a la página principal</a>');
+            $('#broth_panel_heading').empty().append(init.getPageHeader('<i class="fa fa-ambulance fa-5x"></i>', "404: la página no existe", "la dirección no es correcta"));
+            $('#broth_content').empty().append('<a href="' + configuration.getAppClientUrl() + '"/#/home">Ir a la página principal</a>');
         });
+    },
+    loadRoutes: function () {
+        fUsuarioRoutes();
+        fTipodocumentoRoutes();
+        fDocumentoRoutes();
+        fEstadoRoutes();
+        fTipousuarioRoutes();
+        fPreguntaRoutes();
+        fOpcionRoutes();
+        fRespuestaRoutes();
+        fCuestionarioRoutes();
+    },
+    resetCSS: function () {
+        $('link[rel="stylesheet"]').each(function () {
+            this.remove();
+        })
+        $('<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>').appendTo("head");
+        $('<link href="vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css"/>').appendTo("head");
+        $('<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>').appendTo("head");
+        $('<link href="http://fonts.googleapis.com/css?family=Oswald" rel="stylesheet" type="text/css"/>').appendTo("head");
+        $('<link href="http://fonts.googleapis.com/css?family=Questrial" rel="stylesheet" type="text/css"/>').appendTo("head");
+        $('<link href="css/main/main.css" rel="stylesheet" type="text/css"/>').appendTo("head");
     }
 }
 

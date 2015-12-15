@@ -35,47 +35,51 @@ var cuestionarioView = function () {
 cuestionarioView.prototype = new viewModule();
 cuestionarioView.prototype.getViewTemplate_func = function (strClass, jsonDataViewModule) {
     cantidad = 0;
-    var cuestionario = '<form name="myform">';
-    cuestionario += '<div class="pregresp">';
+    var cuestionario = '<form name="myform" class="cuestionario">';
+    //cuestionario += '<div class="pregresp">';
     var tituloPintado = 0;
     var dataJSON;
     var iteradorJ = 0;
     var opcion = 0;
     var newOpcion = 0;
     var posicion = 0;
+    var id_assigner = 0;
     miarray = new Array(jsonDataViewModule.bean.message.length);
     for (var i = 0; i < jsonDataViewModule.bean.message.length; i++) {
         if (tituloPintado == 0) {
             dataJSON = jsonDataViewModule.bean.message[i].titulo;
-            cuestionario += '<h3>';
-            cuestionario += dataJSON;
-            cuestionario += "</h3>";
-            cuestionario += "</div>";
+            $("#broth_title").empty().append(dataJSON);
+//            cuestionario += '<h3>';
+//            cuestionario += dataJSON;
+//            cuestionario += "</h3>";
+//            cuestionario += "</div>";
             tituloPintado++;
         }
 
         if (iteradorJ < jsonDataViewModule.bean.message.length - 1) {
             iteradorJ = iteradorJ + 1;
         }
-
+        
         if (jsonDataViewModule.bean.message[i].id_pregunta !== jsonDataViewModule.bean.message[iteradorJ].id_pregunta) {
             cuestionario += '<div class="pregunta">';
             dataJSON = jsonDataViewModule.bean.message[i].descripcionPregunta;
             cuestionario += dataJSON;
-            cuestionario += "</div>";
+
             cuestionario += '<ul class="opciones">';
+            
             while (opcion >= 0) {
 
-                cuestionario += '<li><input type="radio" name="group' + i + '" value="' + jsonDataViewModule.bean.message[newOpcion].id_opcion + '">';
+                cuestionario += '<li><label class="label_radio r_off" for="id' + id_assigner + '"><input type="radio" class="input_radio" name="group' + i + '" id="id' + id_assigner + '" value="' + jsonDataViewModule.bean.message[newOpcion].id_opcion + '">';
                 dataJSON = jsonDataViewModule.bean.message[newOpcion].descripcionOpcion;
                 cuestionario += dataJSON;
 
-                cuestionario += "</input></li>";
-
+                cuestionario += "</input></label></li>";
+                id_assigner++;
                 newOpcion++;
                 opcion--;
             }
             cuestionario += "</ul>";
+            cuestionario += "</div>";
             miarray[posicion] = "group" + i;
             posicion++;
             opcion = 0;
@@ -83,19 +87,21 @@ cuestionarioView.prototype.getViewTemplate_func = function (strClass, jsonDataVi
             cuestionario += '<div class="pregunta">';
             dataJSON = jsonDataViewModule.bean.message[i].descripcionPregunta;
             cuestionario += dataJSON;
-            cuestionario += "</div>";
+
             cuestionario += '<ul class="opciones">';
             while (opcion >= 0) {
 
-                cuestionario += '<li><input type="radio" name="group' + i + '" value="' + jsonDataViewModule.bean.message[newOpcion].id_opcion + '">';
+                cuestionario += '<li class="li_radio"><label class="label_radio r_off" for="group' + id_assigner + '"><input type="radio" name="group' + i + '" id="group' + id_assigner + '" class="input_radio" value="' + jsonDataViewModule.bean.message[newOpcion].id_opcion + '">';
                 dataJSON = jsonDataViewModule.bean.message[newOpcion].descripcionOpcion;
                 cuestionario += dataJSON;
 
-                cuestionario += "</input></li>";
+                cuestionario += "</input></label></li>";
 
+                id_assigner++;
                 newOpcion++;
                 opcion--;
             }
+            cuestionario += "</div>";
             miarray[posicion] = "group" + i;
             posicion++;
         } else {
@@ -103,19 +109,33 @@ cuestionarioView.prototype.getViewTemplate_func = function (strClass, jsonDataVi
         }
         cantidad++;
     }
-
+    
+    cuestionario += '<div class="g-recaptcha" data-callback="captcha_filled" data-expired-callback="captcha_expired" data-sitekey="6LdbtxITAAAAADq4bJ_0U9VZGiBCPm2sdOgZ-7Su"></div>';
+ 
+    cuestionario += '<input type="button" value="Enviar" id="enviar_click" class="btn btn-default">';
     cuestionario += '</form>';
-    cuestionario += '</br>';
-    cuestionario += '</br>';
-    cuestionario += '<input type="button" value="Enviar" id="enviarClick">';
+    
+    cuestionario +='<script src="https://www.google.com/recaptcha/api.js"></script>';
+    cuestionario +="<script>";
+    cuestionario +="$('.label_radio').click(function(){setupLabel();});";
+    cuestionario +="</script>";
 
     return cuestionario;
 };
 
+var captcha = false;
+
+function captcha_filled() {
+    captcha = true;
+}
+
+function captcha_expired() {
+    captcha = false;
+}
 
 cuestionarioView.prototype.bind = function () {
-    that=this;
-    $("#enviarClick").click(function () {
+    that = this;
+    $("#enviar_click").click(function () {
         var resultado = "";
         var clickeado = "";
         var posicion = 0;
@@ -131,22 +151,40 @@ cuestionarioView.prototype.bind = function () {
                 }
             }
         }
-
+        
         strValues = validados;
+        if(captcha) {
         that.getPromesa({json: JSON.stringify(strValues)}).done(function (result) {
 
             if (result["status"] == "200") {
-                resultadoMessage = 'Se han guardado las respuestas';
+                resultadoMessage = 'Se han guardado las respuestas';               
+                window.location = "http://localhost:8081/openAUSIAS/#/cuestionario/list";
+
+                $(window).scrollTop(0);
             } else {
                 resultadoMessage = "ERROR: No se ha creado el registro";
+                alert(resultadoMessage);
             }
         });
+    } else {
+        alert("Rellena el captcha.");
+    }
     });
 };
 
 cuestionarioView.prototype.getPromesa = function (jsonfile) {
-
-    return ajax.call(config.getAppUrl() + '?ob=respuesta&op=procesacuestionario', 'GET', jsonfile);
+    return this.ajax_call(configuration.getAppUrl() + '?ob=respuesta&op=procesacuestionario', 'GET', jsonfile);
 };
+
+
+//captcha para SERVER
+cuestionarioView.prototype.sendCaptcha = function () {
+    // enviar a "https://www.google.com/recaptcha/api/siteverify":
+    // method: POST
+    // secret: 6LdbtxITAAAAAMbRozjcg_5ojpYFGAcmmziMKpv3
+    // response: g-recaptcha-response
+    // remoteIp: user's ip adress
+    //return this.ajax_call("https://www.google.com/recaptcha/api/siteverify", 'POST', g-recaptcha-response)
+}
 
 

@@ -30,5 +30,5 @@ var preguntaNew = function () {
 };
 preguntaNew.prototype = new newModule();
 preguntaNew.prototype.doEventsLoading = function () {
-    form.getForeign('pregunta','documento');     
+    this.form_getForeign('pregunta','documento');     
 };

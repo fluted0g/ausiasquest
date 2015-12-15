@@ -31,13 +31,13 @@ var bpListModule = function () {
 }
 bpListModule.prototype = new pListModule();
 bpListModule.prototype.loadThButtons = function (meta, strClase, UrlFromParamsWithoutOrder) {
-    return button.getTableHeaderButtons(meta.Name, strClase, 'bpList', UrlFromParamsWithoutOrder);
+    return this.button_getTableHeaderButtons(meta.Name, strClase, 'bpList', UrlFromParamsWithoutOrder);
 }
 bpListModule.prototype.bindAll = function (place, objParams, callbackFunction, oModel, oView) {
     var thisObject = this;
     $('.pagination_link').unbind('click');
     $('.pagination_link').click(function (event) {
-        paramsObject = parameter.getUrlObjectFromParamsWithoutParamArray(paramsObject, ["page"]);
+        paramsObject = thisObject.parameter_getUrlObjectFromParamsWithoutParamArray(paramsObject, ["page"]);
         paramsObject["page"] = parseInt($(this).attr('id'));
         
         //ausiasFLOW.getComponent('view').strParams['id']
@@ -49,7 +49,7 @@ bpListModule.prototype.bindAll = function (place, objParams, callbackFunction, o
     });
     $('#selectVisibleFields').unbind('change');
     $("#selectVisibleFields").change(function () {
-        paramsObject = parameter.getUrlObjectFromParamsWithoutParamArray(paramsObject, ["vf"]);
+        paramsObject = thisObject.parameter_getUrlObjectFromParamsWithoutParamArray(paramsObject, ["vf"]);
         paramsObject["vf"] = $("#selectVisibleFields option:selected").val();
         
         thisObject.strParams=paramsObject;
@@ -59,7 +59,7 @@ bpListModule.prototype.bindAll = function (place, objParams, callbackFunction, o
     });
     $('.rpp_link').unbind('click');
     $('.rpp_link').on('click', function (event) {
-        paramsObject = parameter.getUrlObjectFromParamsWithoutParamArray(paramsObject, ["rpp"]);
+        paramsObject = thisObject.parameter_getUrlObjectFromParamsWithoutParamArray(paramsObject, ["rpp"]);
         paramsObject["rpp"] = parseInt($(this).attr('id'));
         
         thisObject.strParams=paramsObject;
@@ -76,7 +76,7 @@ bpListModule.prototype.bindAll = function (place, objParams, callbackFunction, o
     ;
     $('#btnFiltrar').unbind('click');
     $("#btnFiltrar").click(function (event) {
-        paramsObject = parameter.getUrlObjectFromParamsWithoutParamArray(paramsObject, ["filter", "filteroperator", "filtervalue"]);
+        paramsObject = thisObject.parameter_getUrlObjectFromParamsWithoutParamArray(paramsObject, ["filter", "filteroperator", "filtervalue"]);
         paramsObject["filter"] = $("#selectFilter option:selected").val();
         paramsObject["filteroperator"] = $("#selectFilteroperator option:selected").val();
         paramsObject["filtervalue"] = $("#inputFiltervalue").val();
@@ -88,7 +88,7 @@ bpListModule.prototype.bindAll = function (place, objParams, callbackFunction, o
     });
     $('.orderAsc').unbind('click');
     $('.orderAsc').on('click', function (event) {
-        paramsObject = parameter.getUrlObjectFromParamsWithoutParamArray(paramsObject, ["order", "ordervalue"]);
+        paramsObject = thisObject.parameter_getUrlObjectFromParamsWithoutParamArray(paramsObject, ["order", "ordervalue"]);
         paramsObject["order"] = $(this).attr('id');
         paramsObject["ordervalue"] = "asc";
         
@@ -99,7 +99,7 @@ bpListModule.prototype.bindAll = function (place, objParams, callbackFunction, o
     });
     $('.orderDesc').unbind('click');
     $('.orderDesc').on('click', function (event) {
-        paramsObject = parameter.getUrlObjectFromParamsWithoutParamArray(paramsObject, ["order", "ordervalue"]);
+        paramsObject = thisObject.parameter_getUrlObjectFromParamsWithoutParamArray(paramsObject, ["order", "ordervalue"]);
         paramsObject["order"] = $(this).attr('id');
         paramsObject["ordervalue"] = "desc";
         
@@ -110,7 +110,7 @@ bpListModule.prototype.bindAll = function (place, objParams, callbackFunction, o
     });
     $('#linkQuitarOrden').unbind('click');
     $('#linkQuitarOrden').click(function () {
-        paramsObject = parameter.getUrlObjectFromParamsWithoutParamArray(paramsObject, ["order", "ordervalue"]);
+        paramsObject = thisObject.parameter_getUrlObjectFromParamsWithoutParamArray(paramsObject, ["order", "ordervalue"]);
         
         thisObject.strParams=paramsObject;
         //ausiasFLOW.pListModule_paramsObject = paramsObject;
@@ -119,7 +119,7 @@ bpListModule.prototype.bindAll = function (place, objParams, callbackFunction, o
     });
     $('#linkQuitarFiltro').unbind('click');
     $('#linkQuitarFiltro').click(function () {
-        paramsObject = parameter.getUrlObjectFromParamsWithoutParamArray(paramsObject, ["filter", "filteroperator", "filtervalue"]);
+        paramsObject = thisObject.parameter_getUrlObjectFromParamsWithoutParamArray(paramsObject, ["filter", "filteroperator", "filtervalue"]);
         
         thisObject.strParams=paramsObject;
         //ausiasFLOW.pListModule_paramsObject = paramsObject;

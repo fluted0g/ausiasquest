@@ -28,14 +28,14 @@
 
 function fDocumentoRoutes() {
     var icon = '<i class="fa fa-file-text-o fa-5x"></i>';
-    var fillDocumentoPageHeader = _.partial(html.getPageHeader, icon, 'Documento', _);
+    var fillDocumentoPageHeader = _.partial(init.getPageHeader, icon, 'Documento', _);
     var strClass = 'documento';
     var header=$('#broth_panel_heading');
     var content = $('#broth_content');
     //--------------------------------------------------------------------------
     Path.map("#/" + strClass + "/remove/:id").to(function () {
         header.empty().append(fillDocumentoPageHeader('Remove'));
-        var strParam = parameter.getUrlObjectFromUrlString(this.params['url']);
+        var strParam = init.getUrlObjectFromUrlString(this.params['url']);
         ausiasFLOW.reset();
         ausiasFLOW.initialize(removeModule, content, strClass, 'remove', strParam);
         return false;
@@ -43,7 +43,7 @@ function fDocumentoRoutes() {
     //--------------------------------------------------------------------------
     Path.map("#/" + strClass + "/new(/:url)").to(function () {
         header.empty().append(fillDocumentoPageHeader('New'));
-        var strParam = parameter.getUrlObjectFromUrlString(this.params['url']);
+        var strParam = init.getUrlObjectFromUrlString(this.params['url']);
         ausiasFLOW.reset();
         ausiasFLOW.initialize(documentoNew, content, strClass, 'new', strParam);
         return false;
@@ -51,7 +51,7 @@ function fDocumentoRoutes() {
     //--------------------------------------------------------------------------    
     Path.map("#/" + strClass + "/edit/:url").to(function () {
         header.empty().append(fillDocumentoPageHeader('Edit'));
-        var strParam = parameter.getUrlObjectFromUrlString(this.params['url']);
+        var strParam = init.getUrlObjectFromUrlString(this.params['url']);
         ausiasFLOW.reset();
         ausiasFLOW.initialize(documentoEdit, content, strClass, 'edit', strParam);
         return false;
@@ -59,7 +59,7 @@ function fDocumentoRoutes() {
     //--------------------------------------------------------------------------
     Path.map("#/" + strClass + "/view/:id").to(function () {
         header.empty().append(fillDocumentoPageHeader('View'));
-        var strParam = parameter.getUrlObjectFromUrlString(this.params['url']);
+        var strParam = init.getUrlObjectFromUrlString(this.params['url']);
         ausiasFLOW.reset();
         ausiasFLOW.initialize(viewModule, content, strClass, 'view', strParam);
         return false;
@@ -67,7 +67,7 @@ function fDocumentoRoutes() {
     //--------------------------------------------------------------------------    
     Path.map("#/" + strClass + "/list(/:url)").to(function () {
         header.empty().append(fillDocumentoPageHeader('List'));
-        var strParam = parameter.defaultizeUrlObjectParametersForLists(parameter.getUrlObjectFromUrlString(this.params['url']));
+        var strParam = init.defaultizeUrlObjectParametersForLists(init.getUrlObjectFromUrlString(this.params['url']));
         ausiasFLOW.reset();
         ausiasFLOW.initialize(listModule, content, strClass, 'list', strParam);
         return false;
@@ -75,7 +75,7 @@ function fDocumentoRoutes() {
     //--------------------------------------------------------------------------
     Path.map("#/" + strClass + "/plist(/:url)").to(function () {
         header.empty().append(fillDocumentoPageHeader('Paginated List'));
-        var strParam = parameter.getUrlObjectFromUrlString(this.params['url']);
+        var strParam = init.getUrlObjectFromUrlString(this.params['url']);
         ausiasFLOW.reset();
         ausiasFLOW.initialize(pListModule, content, strClass, 'plist', strParam);
         return false;
@@ -83,14 +83,14 @@ function fDocumentoRoutes() {
     //--------------------------------------------------------------------------
     Path.map("#/" + strClass + "/plist_labels_authors_x_ndocs(/:url)").to(function () {
         header.empty().append(fillDocumentoPageHeader('Paginated List'));
-        var strParam = parameter.getUrlObjectFromUrlString(this.params['url']);
+        var strParam = init.getUrlObjectFromUrlString(this.params['url']);
         ausiasFLOW.reset();
         ausiasFLOW.initialize(pListModule, content, strClass, 'plist_labels_authors_x_ndocs', strParam);
         return false;
     });
     //--------------------------------------------------------------------------
     Path.map("#/" + strClass + "/abc(/:url)").to(function () {
-        var strParam = parameter.getUrlObjectFromUrlString(this.params['url']);
+        var strParam = init.getUrlObjectFromUrlString(this.params['url']);
         if (strParam) {
             strParam.vf = 4;
         } else {
@@ -106,10 +106,11 @@ function fDocumentoRoutes() {
     //--------------------------------------------------------------------------
     Path.map("#/" + strClass + "/documentosautor").to(function () {
         header.empty().append(fillDocumentoPageHeader('Documentos de cada autor'));
-        var strParam = parameter.getUrlObjectFromUrlString(this.params['url']);
+        var strParam = init.getUrlObjectFromUrlString(this.params['url']);
         ausiasFLOW.reset();
         ausiasFLOW.initialize(documentosautorList, content, 'documentosautor', 'list', strParam);
         return false;
     });
-    
+
+
 }

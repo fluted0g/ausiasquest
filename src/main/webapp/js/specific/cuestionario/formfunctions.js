@@ -26,10 +26,27 @@
  * 
  */
 
-var preguntaEdit = function () {
-};
-preguntaEdit.prototype = new editModule();
-preguntaEdit.prototype.doEventsLoading = function () {
-    this.form_getForeign('pregunta','documento');     
-};
+function setupLabel() {
+        //source: http://www.maratz.com/blog/archives/2006/06/11/fancy-checkboxes-and-radio-buttons/
+        //esto es para checkboxes
+        if ($('.label_check input').length) {
+            $('.label_check').each(function(){ 
+                $(this).removeClass('c_on');
+            });
+            $('.label_check input:checked').each(function(){ 
+                $(this).parent('label').addClass('c_on');
+            });                
+        };
+        
+        // y esto para radio buttons
+        if ($('.label_radio input').length) {
+            $('.label_radio').each(function(){ 
+                $(this).removeClass('r_on');
+            });
+            $('.label_radio input:checked').each(function(){ 
+                $(this).parent('label').addClass('r_on');
+            });
+        };
+        
+    };
 

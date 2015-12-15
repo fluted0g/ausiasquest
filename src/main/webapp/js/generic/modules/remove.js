@@ -32,20 +32,21 @@ var removeModule = function () {
 removeModule.prototype = new viewModule();
 
 removeModule.prototype.fill = function () {
+    var thisObject = this;
     $('#broth_content').append(
-            dom.div('id="result"','¿Seguro que desea borrar el registro?')+
-            dom.a('class="btn btn-danger" id="btnBorrarSi" href="#"','Sí, borrar')
+            dom.div('id="result"', '¿Seguro que desea borrar el registro?') +
+            dom.a('class="btn btn-danger" id="btnBorrarSi" href="#"', 'Sí, borrar')
             );
     $('#btnBorrarSi').unbind('click');
     $('#btnBorrarSi').click(function (event) {
-        promise.removeOne(strClass, parametersObject['id']).done(function (result) {
+        thisObject.promise_removeOne(strClass, parametersObject['id']).done(function (result) {
             if (result["status"] == "200") {
                 resultadoMessage = 'Se ha eliminado el registro con id=' + result["message"];
             } else {
                 resultadoMessage = "ERROR: No se ha eliminado el registro";
             }
             var mensaje = "<h5>Código: " + result["status"] + "</h5><h5>" + resultadoMessage + "</h5>";
-            modal.loadModalNotify($('#broth_modal'), mensaje, function () {
+            thisObject.modal_loadModalNotify($('#broth_modal'), mensaje, function () {
                 //window.location.href = "#/" + strClass + "/plist/";
                 $('#broth_content').empty();
                 $('#broth_modal').empty();

@@ -30,6 +30,6 @@ var usuarioNew = function () {
 };
 usuarioNew.prototype = new newModule();
 usuarioNew.prototype.doEventsLoading = function () {
-    form.getForeign('usuario','estado');
-    form.getForeign('usuario','tipousuario');       
+    this.form_getForeign('usuario','estado');
+    this.form_getForeign('usuario','tipousuario');       
 };

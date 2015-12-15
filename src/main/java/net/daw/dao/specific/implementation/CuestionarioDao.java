@@ -131,55 +131,57 @@ public class CuestionarioDao extends TableDaoGenImpl<CuestionarioBean> {
 
         ResultSet resultdocumento = oMysql.getAllSql("select * from documento");
         if (resultdocumento != null) {
-           
-            while (resultdocumento.next()) {                 
-                ResultSet resultpregunta = oMysql.getAllSql("select * from pregunta");
-                int i = 0;
-                while (resultpregunta.next()) {
-                    if (resultpregunta.getInt("id_documento") == resultdocumento.getInt("id")) {
-                        
-                        if (i == 0) {
-                          
-                            i=0;
-                            PreguntaDao oPreguntaDao = new PreguntaDao(oConnection);
-                            PreguntaBean oPreguntaBean = new PreguntaBean();
-                            oPreguntaBean.setId(resultpregunta.getInt("id"));
 
-                            oPreguntaBean = oPreguntaDao.get(oPreguntaBean, 1);
-                            GroupBeanImpl oGroupBeanImpl = new GroupBeanImpl();
-                            oGroupBeanImpl.setBean(oPreguntaBean);
-                            oGroupBeanImpl.setMeta(oPreguntaDao.getmetainformation());
+            while (resultdocumento.next()) {
+                if (resultdocumento.getInt("id_tipodocumento") == 12) {
+                    ResultSet resultpregunta = oMysql.getAllSql("select * from pregunta");
+                    int i = 0;
+                    while (resultpregunta.next()) {
+                        if (resultpregunta.getInt("id_documento") == resultdocumento.getInt("id")) {
 
-                            ResultSet resultopcion = oMysql.getAllSql("select * from opcion");
-                            int j = 0;
-                            while (resultopcion.next()) {
-                                if (resultopcion.getInt("id_pregunta") == resultpregunta.getInt("id")) {
-                                    if (j == 0) {
-                                      j = 0;
-                                        CuestionarioBean oCuestionarioBean = new CuestionarioBean();
-                                        oCuestionarioBean.setId_documento(resultdocumento.getInt("id"));
-                                        oCuestionarioBean.setTitulo(resultdocumento.getString("titulo"));
+                            if (i == 0) {
 
-                                        oCuestionarioBean.setObj_pregunta(oGroupBeanImpl);
-                                        oCuestionarioBean.setId_pregunta(resultopcion.getInt("id_pregunta"));
-                                        oCuestionarioBean.setDescripcionOpcion(resultopcion.getString("descripcion"));
-                                        oCuestionarioBean.setDescripcionPregunta(resultpregunta.getString("descripcion"));
-                                        OpcionDao oOpcionDao = new OpcionDao(oConnection);
-                                        OpcionBean oOpcionBean = new OpcionBean();
-                                        oOpcionBean.setId(resultopcion.getInt("id"));
-                                        oOpcionBean = oOpcionDao.get(oOpcionBean, 1);
-                                        oCuestionarioBean.setId_opcion(resultopcion.getInt("id"));
-                                        GroupBeanImpl oGroupBeanImplOpcion = new GroupBeanImpl();
-                                        oGroupBeanImplOpcion.setBean(oOpcionBean);
-                                        oGroupBeanImplOpcion.setMeta(oOpcionDao.getmetainformation());
-                                        oCuestionarioBean.setObj_opcion(oGroupBeanImplOpcion);
-                                        alCuestionario.add(oCuestionarioBean);
+                                i = 0;
+                                PreguntaDao oPreguntaDao = new PreguntaDao(oConnection);
+                                PreguntaBean oPreguntaBean = new PreguntaBean();
+                                oPreguntaBean.setId(resultpregunta.getInt("id"));
+
+                                oPreguntaBean = oPreguntaDao.get(oPreguntaBean, 1);
+                                GroupBeanImpl oGroupBeanImpl = new GroupBeanImpl();
+                                oGroupBeanImpl.setBean(oPreguntaBean);
+                                oGroupBeanImpl.setMeta(oPreguntaDao.getmetainformation());
+
+                                ResultSet resultopcion = oMysql.getAllSql("select * from opcion");
+                                int j = 0;
+                                while (resultopcion.next()) {
+                                    if (resultopcion.getInt("id_pregunta") == resultpregunta.getInt("id")) {
+                                        if (j == 0) {
+                                            j = 0;
+                                            CuestionarioBean oCuestionarioBean = new CuestionarioBean();
+                                            oCuestionarioBean.setId_documento(resultdocumento.getInt("id"));
+                                            oCuestionarioBean.setTitulo(resultdocumento.getString("titulo"));
+
+                                            oCuestionarioBean.setObj_pregunta(oGroupBeanImpl);
+                                            oCuestionarioBean.setId_pregunta(resultopcion.getInt("id_pregunta"));
+                                            oCuestionarioBean.setDescripcionOpcion(resultopcion.getString("descripcion"));
+                                            oCuestionarioBean.setDescripcionPregunta(resultpregunta.getString("descripcion"));
+                                            OpcionDao oOpcionDao = new OpcionDao(oConnection);
+                                            OpcionBean oOpcionBean = new OpcionBean();
+                                            oOpcionBean.setId(resultopcion.getInt("id"));
+                                            oOpcionBean = oOpcionDao.get(oOpcionBean, 1);
+                                            oCuestionarioBean.setId_opcion(resultopcion.getInt("id"));
+                                            GroupBeanImpl oGroupBeanImplOpcion = new GroupBeanImpl();
+                                            oGroupBeanImplOpcion.setBean(oOpcionBean);
+                                            oGroupBeanImplOpcion.setMeta(oOpcionDao.getmetainformation());
+                                            oCuestionarioBean.setObj_opcion(oGroupBeanImplOpcion);
+                                            alCuestionario.add(oCuestionarioBean);
+                                        }
+                                        j++;
                                     }
-                                   j++;
                                 }
                             }
+                            i++;
                         }
-                        i++;
                     }
                 }
             }

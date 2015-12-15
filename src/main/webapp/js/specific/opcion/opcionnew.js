@@ -30,5 +30,5 @@ var opcionNew = function () {
 };
 opcionNew.prototype = new newModule();
 opcionNew.prototype.doEventsLoading = function () {
-    form.getForeign('opcion','pregunta');    
+    this.form_getForeign('opcion','pregunta');    
 };

@@ -109,10 +109,9 @@ appMenu = function () {
                                             'Tipos de usuario'
                                             )
                                     )
-
                             )
                     ) +
-         dom.li('class="dropdown"',
+            dom.li('class="dropdown"',
                     dom.a('href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"',
                             dom.i('class="fa fa-icon-list-alt"', '') +
                             'Proyectos' +

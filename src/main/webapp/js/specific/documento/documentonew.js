@@ -30,6 +30,6 @@ var documentoNew = function () {
 };
 documentoNew.prototype = new newModule();
 documentoNew.prototype.doEventsLoading = function () {
-    form.getForeign('documento','usuario');
-    form.getForeign('documento','tipodocumento');       
+    this.form_getForeign('documento','usuario');
+    this.form_getForeign('documento','tipodocumento');       
 };

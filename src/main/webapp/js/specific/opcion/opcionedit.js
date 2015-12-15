@@ -30,6 +30,6 @@ var opcionEdit = function () {
 };
 opcionEdit.prototype = new editModule();
 opcionEdit.prototype.doEventsLoading = function () {
-    form.getForeign('opcion','pregunta');
+    this.form_getForeign('opcion','pregunta');
     
 };

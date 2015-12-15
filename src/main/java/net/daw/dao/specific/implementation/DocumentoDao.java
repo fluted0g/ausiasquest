@@ -31,8 +31,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import net.daw.bean.group.GroupBeanImpl;
-import net.daw.bean.specific.implementation.DocumentoBean;
 import net.daw.bean.specific.implementation.CuestionarioBean;
+import net.daw.bean.specific.implementation.DocumentoBean;
 import net.daw.bean.specific.implementation.OpcionBean;
 import net.daw.bean.specific.implementation.PreguntaBean;
 import net.daw.data.specific.implementation.MysqlDataSpImpl;
@@ -56,6 +56,7 @@ public class DocumentoDao extends TableDaoGenImpl<DocumentoBean> {
 //        description += " (" + oDocumentoBean.getHits().toString() + " hits)";
 //        return description;
 //    }
+    
     public ArrayList<CuestionarioBean> getCuestionario(DocumentoBean oDocumentoBean) throws Exception {
 
         //Se crea un arraylist de CuestionarioBean
@@ -128,3 +129,5 @@ public class DocumentoDao extends TableDaoGenImpl<DocumentoBean> {
         return alCuestionario;
     }
 }
+
+

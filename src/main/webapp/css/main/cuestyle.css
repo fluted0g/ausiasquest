@@ -25,32 +25,120 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 */
-/* 
-    Created on : 12-nov-2015, 12:46:05
-    Author     : a044877215y
-*/
 
+/*body{
+    background: -webkit-linear-gradient(to left, #c2e59c , #64b3f4);
+    background: linear-gradient(to left, #c2e59c , #64b3f4); 
+}*/
 
+#broth_panel_heading{
+    background: -webkit-linear-gradient(to right, #16222A , #3A6073);
+    background: linear-gradient(to right, #16222A , #3A6073); 
+}
+#broth_title{
+    text-align: center;
+    text-transform: uppercase;
+    color:azure;
+    padding-left: 35%; 
+}
+
+#broth_subtitle {
+    display:none;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.panel-body{
+    background-color:white;/*#E0E0E0;*/
+}
+
+#broth_operationicon{
+    color: white;
+}
+
+#broth_content {
+
+}
 .cuestionario {
-border: 1px solid #7DA5E0;
-width: 25%;
-padding: 10px;
-margin-top: 20px;
-margin-bottom: 20px;
-font-family: Arial, Verdana, Helvetica, sans-serif;
-font-size: 15px;
-font-weight: bold;
-}
-.pregunta {
-color: #7DA5E0;
-}
-.opciones {
-color: #000000;
-list-style: none;
+    max-width: 100%;
+    padding: 10px;
+    margin-top: -1%;
+    margin-bottom: 5px;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 25px;
 }
 
-.opciones li {
+.cuestionario h3 {
+    text-align: center;
+}
+
+.pregunta {
+    color: black;
+    padding: 10px;
+    border-radius:10px;
+    margin: 20px auto;
+    padding-bottom:-10px;
+    max-width: 70%;
+    background: #559fc6;
+    
+}
+
+
+.opciones {
+    color: #000000;
+    list-style: none;
+    padding:3px;
+    background-image: url(../../images/images/divider.png);
+    background-repeat: repeat-x;
+    padding-top:10px;
+    margin-bottom: -10px;
+}
+
+.li_radio {
     color: #000000;
 }
 
+.label_radio {
+    padding-left: 34px;
+}
+
+.r_off {
+    background-image: url(../../images/images/radio-off.png);
+    background-repeat: no-repeat;
+}
+
+.r_on {
+    background-image: url(../../images/images/radio-on.png);
+    background-repeat: no-repeat;
+}
+
+.input_radio {
+    position: absolute; 
+    left: -9999px;
+}
+
+.input_radio:checked {
+    background-color: red;
+}
+
+#enviar_click {
+    clear:both;
+    display:block;
+    margin:0 auto;
+    margin-top: 5px;
+    padding:8px 25px;
+    background: #559fc6;
+}
+
+.g-recaptcha {
+    margin: 0 auto;
+    width:304px;
+}
+
+@media only screen and (max-width:768px) {
+    .pregunta {
+        max-width:90%;
+    }
+}
 

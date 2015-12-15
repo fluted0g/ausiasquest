@@ -30,6 +30,6 @@ var respuestaEdit = function () {
 };
 respuestaEdit.prototype = new newModule();
 respuestaEdit.prototype.doEventsLoading = function () {
-    form.getForeign('respuesta','opcion');
-    form.getForeign('respuesta','usuario');       
+    this.form_getForeign('respuesta','opcion');
+    this.form_getForeign('respuesta','usuario');       
 };

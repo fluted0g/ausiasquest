@@ -28,12 +28,12 @@ var ebpListModule = function () {
 }
 ebpListModule.prototype = new bpListModule();
 ebpListModule.prototype.loadThButtons = function (meta, strClase, UrlFromParamsWithoutOrder) {
-    return button.getTableHeaderButtons(meta.Name, strClase, 'ebpList', UrlFromParamsWithoutOrder);
+    return this.button_getTableHeaderButtons(meta.Name, strClase, 'ebpList', UrlFromParamsWithoutOrder);
 }
 ebpListModule.prototype.loadButtons = function (rowValues, strClass) {
     var botonera = "";
     botonera += '<div class="btn-toolbar" role="toolbar"><div class="btn-group btn-group-xs">';
-    botonera += '<a class="btn btn-default selector_button" id="' + html.getId(rowValues) + '"  href="#"><i class="glyphicon glyphicon-ok"></i></a>';
+    botonera += '<a class="btn btn-default selector_button" id="' + this.html_getId(rowValues) + '"  href="#"><i class="glyphicon glyphicon-ok"></i></a>';
     botonera += '</div></div>';
     return botonera;
 };

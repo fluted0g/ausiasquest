@@ -39,14 +39,14 @@ var listModule = function () {
 }
 listModule.prototype = new baseModule();
 listModule.prototype.loadThButtons = function (meta, strClase, UrlFromParamsWithoutOrder) {
-    return button.getTableHeaderButtons(meta.Name, strClase, 'cuestionariolist', UrlFromParamsWithoutOrder);
+    return this.button_getTableHeaderButtons(meta.Name, strClase, 'list', UrlFromParamsWithoutOrder);
 }
 listModule.prototype.loadButtons = function (rowValues, strOb) {
     var botonera = "";
-    botonera += button.getTableToobarButton(strOb, 'view', rowValues[0].data, 'glyphicon-eye-open');
-    botonera += button.getTableToobarButton(strOb, 'edit', rowValues[0].data, 'glyphicon-pencil');
-    botonera += button.getTableToobarButton(strOb, 'remove', rowValues[0].data, 'glyphicon-remove');
-    return button.getToolbarBar(botonera);
+    botonera += this.button_getTableToobarButton(strOb, 'view', rowValues[0].data, 'glyphicon-eye-open');
+    botonera += this.button_getTableToobarButton(strOb, 'edit', rowValues[0].data, 'glyphicon-pencil');
+    botonera += this.button_getTableToobarButton(strOb, 'remove', rowValues[0].data, 'glyphicon-remove');
+    return this.button_getToolbarBar(botonera);
 };
 listModule.prototype.loadPopups = function (meta, rowValues, strClase) {
     //pendent!!!!!!!
@@ -97,7 +97,8 @@ listModule.prototype.getHeaderPageTableFunc = function (jsonMeta, strOb, UrlFrom
     }
     return '<tr>' + arr_meta_data_tableHeader_visibles_acciones.join('') + '</tr>';
 }
-listModule.prototype.getBodyPageTableFunc = function (meta, page, printPrincipal, tdButtons_function, trPopup_function, visibles) {
+listModule.prototype.getBodyPageTableFunc = function (meta, page, visibles) {
+    var that = this;
     //thisObject.jsonData.message.page.list: es un array de objetos. Cada objeto contiene una fila de la tabla de la petición
     //thisObject.jsonData.message.meta; es un array de objetos. Every object contains metadata from every object to print in every row
     var matrix_meta_data = _.map(page, function (oRow, keyRow) {
@@ -109,11 +110,11 @@ listModule.prototype.getBodyPageTableFunc = function (meta, page, printPrincipal
     //every object contains the data and its metadata
     var arr_meta_data_table_buttons = _.map(matrix_meta_data, function (value, key) {
         return (_.map(matrix_meta_data[key], function (value2, key2) {
-            return  '<td>' + printPrincipal(value2) + '</td>';
+            return  '<td>' + that.html_printPrincipal(value2) + '</td>';
         })
                 )
                 .slice(0, parseInt(visibles))
-                .concat(['<td>' + tdButtons_function(value, strOb) + '</td>']);
+                .concat(['<td>' + that.loadButtons(value, strOb) + '</td>']);
     });
     //is an array (rpp) of arrays (rows) of strings
     //every string contains the data of the table cell
@@ -135,17 +136,17 @@ listModule.prototype.prepareParams = function (oComponent) {
     strOb = oComponent.strOb;
     strOp = oComponent.strOp;
     paramsObject = oComponent.strParams;
-    orderParams = parameter.printOrderParamsInUrl(paramsObject);
-    filterParams = parameter.printFilterParamsInUrl(paramsObject);
-    systemFilterParams = parameter.printSystemFilterParamsInUrl(paramsObject);
-    strUrlFromParamsWithoutOrder = parameter.getUrlStringFromParamsObject(parameter.getUrlObjectFromParamsWithoutParamArray(paramsObject, ["order", "ordervalue"]));
+    orderParams = this.parameter_printOrderParamsInUrl(paramsObject);
+    filterParams = this.parameter_printFilterParamsInUrl(paramsObject);
+    systemFilterParams = this.parameter_printSystemFilterParamsInUrl(paramsObject);
+    strUrlFromParamsWithoutOrder = this.parameter_getUrlStringFromParamsObject(this.parameter_getUrlObjectFromParamsWithoutParamArray(paramsObject, ["order", "ordervalue"]));
 }
 listModule.prototype.initialize = function (oComponent) {
     this.prepareParams(oComponent);
 };
 listModule.prototype.getPromise = function () {
     if (paramsObject) {
-        return promise.getAll(strOb, filterParams, orderParams, systemFilterParams);
+        return this.promise_getAll(strOb, filterParams, orderParams, systemFilterParams);
     }
 }
 listModule.prototype.getData = function (jsonDataReturned) {
@@ -163,9 +164,9 @@ listModule.prototype.getData = function (jsonDataReturned) {
 listModule.prototype.render = function () {
     if (jsonData.status == 200) {
         var visibles = 6;
-        var strTable = table.getTable(
+        var strTable = this.table_getTable(
                 this.getHeaderPageTableFunc(jsonData.message.meta.message, strOb, strUrlFromParamsWithoutOrder, visibles),
-                this.getBodyPageTableFunc(jsonData.message.meta.message, jsonData.message.page.message, html.printPrincipal, this.loadButtons, this.loadPopups, visibles)
+                this.getBodyPageTableFunc(jsonData.message.meta.message, jsonData.message.page.message, visibles)
                 );
         return '<div id="tablePlace">' + strTable + '</div>';
     }

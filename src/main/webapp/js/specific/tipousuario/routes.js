@@ -28,14 +28,14 @@
 
 function fTipousuarioRoutes() {
     var icon = '<i class="fa fa-file-text-o fa-5x"></i>';
-    var fillDocumentoPageHeader = _.partial(html.getPageHeader, icon, 'Tipo de usuario', _);
+    var fillDocumentoPageHeader = _.partial(init.getPageHeader, icon, 'Tipo de usuario', _);
     var strClass = 'tipousuario';
     var header = $('#broth_panel_heading');
     var content = $('#broth_content');
     //--------------------------------------------------------------------------
     Path.map("#/" + strClass + "/remove/:id").to(function () {
         header.empty().append(fillDocumentoPageHeader('Remove'));
-        var strParam = parameter.getUrlObjectFromUrlString(this.params['url']);
+        var strParam = init.getUrlObjectFromUrlString(this.params['url']);
         ausiasFLOW.reset();
         ausiasFLOW.initialize(removeModule, content, strClass, 'remove', strParam);
         return false;
@@ -43,23 +43,23 @@ function fTipousuarioRoutes() {
     //--------------------------------------------------------------------------
     Path.map("#/" + strClass + "/new(/:url)").to(function () {
         header.empty().append(fillDocumentoPageHeader('New'));
-        var strParam = parameter.getUrlObjectFromUrlString(this.params['url']);
+        var strParam = init.getUrlObjectFromUrlString(this.params['url']);
         ausiasFLOW.reset();
-        ausiasFLOW.initialize(usuarionew, content, strClass, 'new', strParam);
+        ausiasFLOW.initialize(newModule, content, strClass, 'new', strParam);
         return false;
     });
     //--------------------------------------------------------------------------    
     Path.map("#/" + strClass + "/edit/:url").to(function () {
         header.empty().append(fillDocumentoPageHeader('Edit'));
-        var strParam = parameter.getUrlObjectFromUrlString(this.params['url']);
+        var strParam = init.getUrlObjectFromUrlString(this.params['url']);
         ausiasFLOW.reset();
-        ausiasFLOW.initialize(usuarioedit, content, strClass, 'edit', strParam);
+        ausiasFLOW.initialize(editModule, content, strClass, 'edit', strParam);
         return false;
     });
     //--------------------------------------------------------------------------
     Path.map("#/" + strClass + "/view/:id").to(function () {
         header.empty().append(fillDocumentoPageHeader('View'));
-        var strParam = parameter.getUrlObjectFromUrlString(this.params['url']);
+        var strParam = init.getUrlObjectFromUrlString(this.params['url']);
         ausiasFLOW.reset();
         ausiasFLOW.initialize(viewModule, content, strClass, 'view', strParam);
         return false;
@@ -67,7 +67,7 @@ function fTipousuarioRoutes() {
     //--------------------------------------------------------------------------
     Path.map("#/" + strClass + "/plist(/:url)").to(function () {
         header.empty().append(fillDocumentoPageHeader('Paginated List'));
-        var strParam = parameter.getUrlObjectFromUrlString(this.params['url']);
+        var strParam = init.getUrlObjectFromUrlString(this.params['url']);
         ausiasFLOW.reset();
         ausiasFLOW.initialize(pListModule, content, strClass, 'plist', strParam);
         return false;

@@ -29,14 +29,14 @@
 
 function fRespuestaRoutes() {
     var icon = '<i class="fa fa-file-text-o fa-5x"></i>';
-    var fillRespuestaPageHeader = _.partial(html.getPageHeader, icon, 'Respuesta', _);
+    var fillRespuestaPageHeader = _.partial(init.getPageHeader, icon, 'Respuesta', _);
     var strClass = 'respuesta';
     var header=$('#broth_panel_heading');
     var content = $('#broth_content');
     //--------------------------------------------------------------------------
     Path.map("#/" + strClass + "/remove/:id").to(function () {
         header.empty().append(fillRespuestaPageHeader('Remove'));
-        var strParam = parameter.getUrlObjectFromUrlString(this.params['url']);
+        var strParam = init.getUrlObjectFromUrlString(this.params['url']);
         ausiasFLOW.reset();
         ausiasFLOW.initialize(removeModule, content, strClass, 'remove', strParam);
         return false;
@@ -44,7 +44,7 @@ function fRespuestaRoutes() {
     //--------------------------------------------------------------------------
     Path.map("#/" + strClass + "/new(/:url)").to(function () {
         header.empty().append(fillRespuestaPageHeader('New'));
-        var strParam = parameter.getUrlObjectFromUrlString(this.params['url']);
+        var strParam = init.getUrlObjectFromUrlString(this.params['url']);
         ausiasFLOW.reset();
         ausiasFLOW.initialize(respuestaNew, content, strClass, 'new', strParam);
         return false;
@@ -52,7 +52,7 @@ function fRespuestaRoutes() {
     //--------------------------------------------------------------------------    
     Path.map("#/" + strClass + "/edit/:url").to(function () {
         header.empty().append(fillRespuestaPageHeader('Edit'));
-        var strParam = parameter.getUrlObjectFromUrlString(this.params['url']);
+        var strParam = init.getUrlObjectFromUrlString(this.params['url']);
         ausiasFLOW.reset();
         ausiasFLOW.initialize(respuestaEdit, content, strClass, 'edit', strParam);
         return false;
@@ -60,7 +60,7 @@ function fRespuestaRoutes() {
     //--------------------------------------------------------------------------
     Path.map("#/" + strClass + "/view/:id").to(function () {
         header.empty().append(fillRespuestaPageHeader('View'));
-        var strParam = parameter.getUrlObjectFromUrlString(this.params['url']);
+        var strParam = init.getUrlObjectFromUrlString(this.params['url']);
         ausiasFLOW.reset();
         ausiasFLOW.initialize(viewModule, content, strClass, 'view', strParam);
         return false;
@@ -68,7 +68,7 @@ function fRespuestaRoutes() {
     //--------------------------------------------------------------------------    
     Path.map("#/" + strClass + "/list(/:url)").to(function () {
         header.empty().append(fillRespuestaPageHeader('List'));
-        var strParam = parameter.defaultizeUrlObjectParametersForLists(parameter.getUrlObjectFromUrlString(this.params['url']));
+        var strParam = init.defaultizeUrlObjectParametersForLists(init.getUrlObjectFromUrlString(this.params['url']));
         ausiasFLOW.reset();
         ausiasFLOW.initialize(listModule, content, strClass, 'list', strParam);
         return false;
@@ -76,7 +76,7 @@ function fRespuestaRoutes() {
     //--------------------------------------------------------------------------
     Path.map("#/" + strClass + "/plist(/:url)").to(function () {
         header.empty().append(fillRespuestaPageHeader('Paginated List'));
-        var strParam = parameter.getUrlObjectFromUrlString(this.params['url']);
+        var strParam = init.getUrlObjectFromUrlString(this.params['url']);
         ausiasFLOW.reset();
         ausiasFLOW.initialize(pListModule, content, strClass, 'plist', strParam);
         return false;

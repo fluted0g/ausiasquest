@@ -27,7 +27,7 @@
  */
 function fCuestionarioRoutes() {
     var icon = '<i class="fa fa-question fa-5x"></i>';
-    var fillDocumentoPageHeader = _.partial(html.getPageHeader, icon, 'Cuestionario', _);
+    var fillDocumentoPageHeader = _.partial(init.getPageHeader, icon, 'Cuestionarios', _);
     var strClass = 'cuestionario';
     var header = $('#broth_panel_heading');
     var place = $('#broth_content');
@@ -37,7 +37,7 @@ function fCuestionarioRoutes() {
         $('<link href="css/main/cuestyle.css" rel="stylesheet" type="text/css"/>').appendTo("head");
         //Cambiar cabecera por titulo de cuestionario
         header.empty().append(fillDocumentoPageHeader('View'));
-        var strParam = parameter.getUrlObjectFromUrlString(this.params['url']);
+        var strParam = init.getUrlObjectFromUrlString(this.params['url']);
         ausiasFLOW.reset();
         ausiasFLOW.initialize(cuestionarioView, place, strClass, 'cuestionarioview', strParam);
         return false;
@@ -45,8 +45,9 @@ function fCuestionarioRoutes() {
     
     //--------------------------------------------------------------------------    
     Path.map("#/" + strClass + "/list(/:url)").to(function () {
+        $('<link href="css/main/cuestyle.css" rel="stylesheet" type="text/css"/>').appendTo("head");
         header.empty().append(fillDocumentoPageHeader('List'));
-        var strParam = parameter.getUrlObjectFromUrlString(this.params['url']);
+        var strParam = init.getUrlObjectFromUrlString(this.params['url']);
         ausiasFLOW.reset();
         ausiasFLOW.initialize(cuestionarioList, place, strClass, 'cuestionariolist', strParam);
         return false;

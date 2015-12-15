@@ -269,11 +269,11 @@ public abstract class ViewServiceGenImpl extends MetaServiceGenImpl implements V
             try {
                 String meta = this.getmetainformation();
                 String all = this.getall();
-        
+                String registers = this.getcount();
                 data = "{"
                         + "\"meta\":" + meta
                         + ",\"page\":" + all
-             
+                        + ",\"registers\":" + registers
                         + "}";
                 data = JsonMessage.getJson("200", data);
             } catch (Exception ex) {
@@ -285,5 +285,3 @@ public abstract class ViewServiceGenImpl extends MetaServiceGenImpl implements V
         }
     }
 }
- //          + ",\"registers\":" + registers
-//        String registers = this.getcount();

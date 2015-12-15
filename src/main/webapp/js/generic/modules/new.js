@@ -31,8 +31,9 @@ var newModule = function () {
 }
 newModule.prototype = new baseModule();
 function setForeign(prop, objParams) {
-    promise.getOne(prop, objParams[prop]).done(function (jsonDataViewModuleReceived) {
-        $('#obj_' + prop + '_desc').html(html.printObject2(prop, jsonDataViewModuleReceived.message.meta.message, jsonDataViewModuleReceived.message.bean.message));
+    var that = this;
+    this.promise_getOne(prop, objParams[prop]).done(function (jsonDataViewModuleReceived) {
+        $('#obj_' + prop + '_desc').html(that.html_printObject2(prop, jsonDataViewModuleReceived.message.meta.message, jsonDataViewModuleReceived.message.bean.message));
     })
 }
 newModule.prototype.loadFormValues = function (objParams) {
@@ -53,7 +54,7 @@ newModule.prototype.initialize = function (oComponent) {
     strClass = oComponent.strOb;
 };
 newModule.prototype.getPromise = function () {
-    return promise.getMeta(strClass);
+    return this.promise_getMeta(strClass);
 }
 newModule.prototype.getData = function (jsonDataReceived) {
     if (jsonDataReceived.status == "200") {
@@ -64,9 +65,9 @@ newModule.prototype.getData = function (jsonDataReceived) {
 };
 newModule.prototype.render = function () {
     if (jsonData.status == "200") {
-        return form.getFormTemplate(strClass, jsonData.message);
+        return this.form_getFormTemplate(strClass, jsonData.message);
     } else {
-        return util.notifyException(jsonData.status, jsonData.message);
+        return this.util_notifyException(jsonData.status, jsonData.message);
     }
 }
 newModule.prototype.fill = function () {
@@ -74,20 +75,21 @@ newModule.prototype.fill = function () {
     this.loadFormValues(parametersObject); //new operation can load forced foreigns & no foreigns
 }
 newModule.prototype.bind = function () {
-    validation.loadValidationCallbacks(jsonData.message);
+    var thisObject = this;
+    this.validation_loadValidationCallbacks(jsonData.message);
     this.doEventsLoading();
     $('#submitForm').unbind('click');
     $('#submitForm').click(function (e) {
         // okValidation(function (e) { ...
-        var strValues = array.identificarArray(form.getFormValues(strClass));
-        promise.setOne(strClass, {json: JSON.stringify(strValues)}).done(function (result) {
+        var strValues = thisObject.array_identificarArray(thisObject.form_getFormValues(strClass));
+        thisObject.promise_setOne(strClass, {json: JSON.stringify(strValues)}).done(function (result) {
             if (result["status"] == "200") {
                 resultadoMessage = 'Se ha creado el registro con id=' + result["message"];
             } else {
                 resultadoMessage = "ERROR: No se ha creado el registro";
             }
             var mensaje = "<h5>Código: " + result["status"] + "</h5><h5>" + resultadoMessage + "</h5>";
-            modal.loadModalNotify($('#broth_modal'), mensaje, function () {
+            thisObject.modal_loadModalNotify($('#broth_modal'), mensaje, function () {
                 window.location.href = "#/" + strClass + "/view/" + result["message"];
                 $('#broth_modal').empty();
             }, function () {

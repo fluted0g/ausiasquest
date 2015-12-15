@@ -36,10 +36,11 @@ editModule.prototype.fillForm = function (meta, data) {
     arr_meta_data = _.map(meta, function (value) {
         return  {meta: value, data: data[value.Name]};
     });
+    var that = this;
     $.each(arr_meta_data, function (index, v) {
         if (v.meta.IsObjForeignKey) {
             $('#' + v.meta.Name).val(v.data.bean.id);
-            $('#' + v.meta.Name + "_desc").html(html.printPrincipal( v));
+            $('#' + v.meta.Name + "_desc").html(that.html_printPrincipal(v));
         } else {
             switch (v.meta.Type) {
                 case 'Boolean':
@@ -68,7 +69,7 @@ editModule.prototype.initialize = function (oComponent) {
     parametersObject = this.defaultizeUrlObjectParameters(oComponent.strParams);
 };
 editModule.prototype.getPromise = function () {
-    return promise.getOne(strClass, parametersObject['id']);
+    return this.promise_getOne(strClass, parametersObject['id']);
 };
 editModule.prototype.getData = function (jsonDataReceived) {
     if (jsonDataReceived.status == "200") {
@@ -79,9 +80,9 @@ editModule.prototype.getData = function (jsonDataReceived) {
 }
 editModule.prototype.render = function () {
     if (jsonData.status == "200") {
-        return form.getFormTemplate(strClass, jsonData.message.meta.message);
+        return this.form_getFormTemplate(strClass, jsonData.message.meta.message);
     } else {
-        return util.notifyException(jsonData.status, jsonData.message);
+        return this.util_notifyException(jsonData.status, jsonData.message);
     }
 }
 editModule.prototype.fill = function () {
@@ -93,21 +94,21 @@ editModule.prototype.fill = function () {
 editModule.prototype.bind = function () {
     var thisObject = this;
     if (jsonData.status == "200") {
-        validation.loadValidationCallbacks(jsonData.message.meta.message);
+        this.validation_loadValidationCallbacks(jsonData.message.meta.message);
         this.doEventsLoading();
         $('#id').attr("disabled", true);
         $('#submitForm').unbind('click');
         $('#submitForm').click(function (e) {
             //oView.okValidation(function (e) {
-            strValues = array.identificarArray(form.getFormValues(strClass));
-            promise.setOne(strClass, {json: JSON.stringify(strValues)}).done(function (result) {
+            strValues = thisObject.array_identificarArray(thisObject.form_getFormValues(strClass));
+            thisObject.promise_setOne(strClass, {json: JSON.stringify(strValues)}).done(function (result) {
                 if (result["status"] == "200") {
                     resultadoMessage = 'Se ha modificado el registro con id=' + result["message"];
                 } else {
                     resultadoMessage = "ERROR: No se ha modificado el registro";
                 }
                 var mensaje = "<h5>Código: " + result["status"] + "</h5><h5>" + resultadoMessage + "</h5>";
-                modal.loadModalNotify($('#broth_modal'), mensaje, function () {
+                thisObject.modal_loadModalNotify($('#broth_modal'), mensaje, function () {
                     window.location.href = "#/" + strClass + "/view/" + result["message"];
                     $('#broth_modal').empty();
                 }, function () {

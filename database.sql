@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 10-11-2015 a las 23:46:49
+-- Tiempo de generación: 14-12-2015 a las 03:08:20
 -- Versión del servidor: 5.6.27
 -- Versión de PHP: 5.5.30
 
@@ -169,7 +169,13 @@ INSERT INTO `documento` (`id`, `titulo`, `contenido`, `alta`, `cambio`, `hits`, 
 (82, 'a', 'aserrr', '2015-10-11', '2015-10-11', 1, 0, 'fsd', 0, 0, 1, 0),
 (83, 'a', 'aserrr', '2015-10-11', '2015-10-11', 1, 0, 'fsd', 0, 0, 1, 0),
 (84, 'sss', 'ssss', '2015-10-08', '2015-10-11', 1, 0, 'ssss', 0, 0, 1, 0),
-(91, 'Cuestionario de prueba', '1.-¿cual es el sentido de la vida?\r\na-ninguno, vamos a morir!\r\nb-43\r\nc-tetas\r\nd-ns/nc\r\n\r\n2.-¿qué come el veloz murciélago?\r\na-cardillo y kiwi\r\nb-huevos con patatas\r\nc-paella,ché\r\nd-ns/nc\r\n\r\n3.-¿qué tocaba la cigüeña tras el palenque de paja?\r\na-la zambomba\r\nb-el saxofón\r\nc-la flauta\r\nd-ns/nc\r\n\r\n4.-¿existe Dios?\r\na.-si\r\nb.-no\r\nc.-jamás\r\nd.-yo soy Dios\r\n\r\n5.-¿rajoy es subnormal?\r\na.-si\r\nb.-¿acaso el papa es un boludo?\r\nc.-por supuesto\r\nd.-no me cabe duda', '2015-11-11', '2015-11-11', 1, 15, 'cuestionario,prueba,pregunta,respuesta,opcion', 1, 1, 1, 12);
+(85, 'qqqqqqqqqqq', 'rrr', '2015-10-11', '2015-10-11', 3, 0, 'r', 0, 0, 0, 0),
+(86, 'r', 'r', '2015-10-11', '2015-10-11', 1, 0, 'r', 0, 0, 0, 0),
+(87, 'r', 'r', '2015-10-11', '2015-10-11', 3, 0, 'r', 1, 0, 0, 0),
+(88, 'Pregunta uno', 'Cuestionario prueba', '2015-11-03', '2015-11-03', 0, 7, 'who, is, the, best', 0, 1, 0, 12),
+(89, 'Pregunta 2', 'Esto es una pregunta?', '2015-11-03', '2015-11-03', NULL, 6, 'pregunta, tocapelotas', 0, 1, 0, 12),
+(90, 'hola adios', 'estas o no?', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(91, 'Cuestionario de satisfacción del cliente', 'Bla bla bla bla bla', '2015-12-14', '2015-12-14', 1, 12, 'cuestionario, cliente', 1, 1, 1, 12);
 
 -- --------------------------------------------------------
 
@@ -231,33 +237,30 @@ CREATE TABLE IF NOT EXISTS `opcion` (
   `id` int(11) NOT NULL,
   `id_pregunta` int(11) DEFAULT NULL,
   `descripcion` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `opcion`
 --
 
 INSERT INTO `opcion` (`id`, `id_pregunta`, `descripcion`) VALUES
-(46, 17, 'ninguno, vamos a morir!'),
-(47, 17, '43'),
-(50, 17, 'tetas'),
-(51, 17, 'ns/nc'),
-(54, 18, 'cardillo y kiwi'),
-(55, 18, 'huevos con patatas'),
-(58, 18, 'paella,ché!'),
-(59, 18, 'ns/nc'),
-(62, 19, 'La zambomba'),
-(63, 19, 'El saxofón'),
-(66, 19, 'La flauta'),
-(67, 19, 'NS/NC'),
-(70, 20, 'Sí'),
-(71, 20, 'No'),
-(74, 20, 'Jamás'),
-(75, 20, 'Yo soy Dios'),
-(78, 21, 'Sí'),
-(79, 21, '¿Acaso el Papa es un boludo?'),
-(82, 21, 'Por supuesto'),
-(83, 21, 'No me cabe duda');
+(46, 17, 'Un mes'),
+(47, 17, 'Varios meses'),
+(48, 17, 'Un año'),
+(49, 17, 'Varios años'),
+(54, 18, 'Excelente'),
+(55, 18, 'Muy bueno'),
+(56, 18, 'Bueno'),
+(57, 18, 'Regular'),
+(58, 18, 'Horrible'),
+(64, 21, 'Si'),
+(65, 21, 'No'),
+(66, 21, 'Aun no pero lo haré'),
+(67, 21, 'No veo motivos para recomendarlo'),
+(68, 22, 'Si'),
+(69, 22, 'No'),
+(70, 22, 'Algunas pero no todas'),
+(71, 22, 'Si pero podría mejorarse');
 
 -- --------------------------------------------------------
 
@@ -304,18 +307,17 @@ CREATE TABLE IF NOT EXISTS `pregunta` (
   `id` int(11) NOT NULL,
   `id_documento` int(11) DEFAULT NULL,
   `descripcion` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `pregunta`
 --
 
 INSERT INTO `pregunta` (`id`, `id_documento`, `descripcion`) VALUES
-(17, 91, '¿cual es el sentido de la vida?'),
-(18, 91, '¿qué come el veloz murciélago?'),
-(19, 91, '¿qué tocaba la cigüeña tras el palenque de paja?'),
-(20, 91, '¿existe Dios?'),
-(21, 91, '¿rajoy es subnormal?');
+(17, 91, '¿Cuanto tiempo lleva utilizando openAUSIAS?'),
+(18, 91, '¿Como calificaría nuestro servicio?'),
+(21, 91, '¿Ha recomendado openAUSIAS a sus amigos?'),
+(22, 91, 'openAUSIAS cubre mis necesidades');
 
 -- --------------------------------------------------------
 
@@ -328,18 +330,7 @@ CREATE TABLE IF NOT EXISTS `respuesta` (
   `id_opcion` int(11) DEFAULT NULL,
   `id_usuario` int(11) DEFAULT NULL,
   `fechaHoraAlta` datetime DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `respuesta`
---
-
-INSERT INTO `respuesta` (`id`, `id_opcion`, `id_usuario`, `fechaHoraAlta`) VALUES
-(10, 47, 1, '2015-11-11 00:00:00'),
-(11, 54, 1, '2015-11-11 00:00:00'),
-(12, 63, 1, '2015-11-11 00:00:00'),
-(13, 75, 1, '2015-11-11 17:20:45'),
-(14, 79, 1, '2015-11-11 06:29:21');
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -351,7 +342,7 @@ CREATE TABLE IF NOT EXISTS `tipodocumento` (
   `id` int(6) NOT NULL,
   `descripcion` varchar(255) CHARACTER SET utf8 DEFAULT NULL,
   `privado` tinyint(4) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `tipodocumento`
@@ -553,7 +544,7 @@ ALTER TABLE `estado`
 -- AUTO_INCREMENT de la tabla `opcion`
 --
 ALTER TABLE `opcion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=86;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=72;
 --
 -- AUTO_INCREMENT de la tabla `post`
 --
@@ -563,17 +554,17 @@ ALTER TABLE `post`
 -- AUTO_INCREMENT de la tabla `pregunta`
 --
 ALTER TABLE `pregunta`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT de la tabla `respuesta`
 --
 ALTER TABLE `respuesta`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT de la tabla `tipodocumento`
 --
 ALTER TABLE `tipodocumento`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT de la tabla `tipousuario`
 --
